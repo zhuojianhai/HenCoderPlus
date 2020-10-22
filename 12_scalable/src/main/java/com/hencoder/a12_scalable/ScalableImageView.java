@@ -76,7 +76,7 @@ public class ScalableImageView extends View {
             smallScale = (float) getHeight() / bitmap.getHeight();
             bigScale = (float) getWidth() / bitmap.getWidth() * OVER_SCALE_FACTOR;
         }
-        currentScale = smallScale;
+        currentScale = smallScale;//因为smallScale正好将图片给放大到视图一致了，所以使用这个缩放变量？？？？
     }
 
     @Override
@@ -116,6 +116,25 @@ public class ScalableImageView extends View {
         return scaleAnimator;
     }
 
+    /**
+     * 1. 点击屏幕上的某项的执行流程  有两种情况，一种是时间很短，一种时间稍长
+     *
+     * 时间很短：onDown--------》onSingleTapUp--------》onSingleTapConfirmed
+     *
+     * 时间稍长：onDown--------》onShowPress------》onSingleTapUp--------》onSingleTapConfirmed
+     *
+     * 2. 长按事件
+     *
+     * onDown--------》onShowPress------》onLongPress
+     *
+     * 3.抛：手指触动屏幕后，稍微滑动后立即松开
+     *
+     * onDown-----》onScroll----》onScroll----》onScroll----》………----->onFling
+     *
+     * 4.拖动
+     *
+     * onDown------》onScroll----》onScroll------》onFiling
+     */
     class HenGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
