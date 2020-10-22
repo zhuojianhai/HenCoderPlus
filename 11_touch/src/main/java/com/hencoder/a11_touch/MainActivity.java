@@ -1,7 +1,9 @@
 package com.hencoder.a11_touch;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = findViewById(R.id.view);
+//        view = findViewById(R.id.view);
 
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -25,5 +27,10 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "点击了！", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 }

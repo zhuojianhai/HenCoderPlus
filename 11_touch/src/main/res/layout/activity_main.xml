@@ -5,11 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <View
-        android:id="@+id/view"
-        android:tooltipText="haha"
+<!--    <View-->
+<!--        android:id="@+id/view"-->
+<!--        android:tooltipText="haha"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:background="@color/colorAccent"/>-->
+    <com.hencoder.a11_touch.MyToucheView
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@color/colorAccent"/>
+        android:layout_height="300dp">
+
+    </com.hencoder.a11_touch.MyToucheView>
 
 </LinearLayout>

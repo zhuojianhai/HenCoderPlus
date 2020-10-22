@@ -10,6 +10,11 @@ public class TouchLayout extends ViewGroup {
         super(context, attrs);
     }
 
+    /***
+     * 不是滑动控件，返回false
+     * 摸上就变色了去掉默认的150毫秒等待
+     * @return
+     */
     @Override
     public boolean shouldDelayChildPressedState() {
         return false;
@@ -33,5 +38,21 @@ public class TouchLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         // saklfslkjfsldkjf
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 不用第一时间返回
+     * 在任意事件需要返回的时候返回true
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onInterceptHoverEvent(MotionEvent event) {
+        return super.onInterceptHoverEvent(event);
     }
 }

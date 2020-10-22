@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * 自定义标签Layout
+ */
 public class TagLayout extends ViewGroup {
     List<Rect> childrenBounds = new ArrayList<>();
 

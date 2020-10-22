@@ -41,7 +41,29 @@ public class Main {
 //        nio1();
 //        nio2();
 //        okio1();
-        okio2();
+//        okio2();
+        sh();
+    }
+
+    private static void sh(){
+        int a = 3;
+        int b =1;
+        System.out.println(Integer.toBinaryString(a));
+        System.out.println(Integer.toBinaryString(b));
+        int resut = a&b;
+        int resut1 = a|b;
+        int resut2 = a^b;
+        int resut3 = a&~b;
+
+        System.out.println("a&b = "+resut);
+        System.out.println("a|b = "+resut1);
+        System.out.println("a^b = "+resut2);
+        System.out.println("a&~b = "+resut3);
+
+
+        String s =  String.format("name is %s","zhuojianhai");
+        System.out.println(s);
+
     }
 
     private static void io1() {

@@ -1,6 +1,7 @@
-package com.hencoder.a12_scalable;
+package com.hencoder.a12_scalable.s;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,74 +16,80 @@ import android.widget.OverScroller;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 
+import com.hencoder.a12_scalable.Utils;
+
 public class ScalableImageView extends View {
     private static final float IMAGE_WIDTH = Utils.dpToPixel(300);
-
-    //额外的放大系数
     private static final float OVER_SCALE_FACTOR = 1.5f;
 
     Bitmap bitmap;
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+
     float offsetX;
     float offsetY;
-    float originalOffsetX;//初始偏移 x
-    float originalOffsetY;//初始偏移 Y
+    float originalOffsetX;
+    float originalOffsetY;
     float smallScale;
     float bigScale;
-    boolean big;
+
+    boolean big;//当前是不是大图
+
     float currentScale;
     ObjectAnimator scaleAnimator;
     GestureDetectorCompat detector;
-    HenGestureListener gestureListener = new HenGestureListener();
-    HenFlingRunner henFlingRunner = new HenFlingRunner();
+    ScalableImageView.HenGestureListener gestureListener = new ScalableImageView.HenGestureListener();
+    ScalableImageView.HenFlingRunner henFlingRunner = new ScalableImageView.HenFlingRunner();
     ScaleGestureDetector scaleDetector;
-    HenScaleListener henScaleListener = new HenScaleListener();
+    ScalableImageView.HenScaleListener henScaleListener = new ScalableImageView.HenScaleListener();
     OverScroller scroller;
 
+
+    public ScalableImageView(Context context) {
+        this(context,null);
+    }
+
     public ScalableImageView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
+    }
+
+    public ScalableImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
 
         bitmap = Utils.getAvatar(getResources(), (int) IMAGE_WIDTH);
         detector = new GestureDetectorCompat(context, gestureListener);
+
+        //长按事件禁止掉
+//        detector.setIsLongpressEnabled(false);
+
         scroller = new OverScroller(context);
         scaleDetector = new ScaleGestureDetector(context, henScaleListener);
+
     }
 
-    /**
-     *
-     * @param w
-     * @param h
-     * @param oldw
-     * @param oldh
-     *
-     * 当视图的大小发生更改时，在布局期间调用此函数。
-     * 如果你刚被添加到视图层次结构中，你用旧的值为0。
-     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        //一开始让图片居中显示，
+        offsetX = (getWidth() - bitmap.getWidth())/2f;
+        offsetY = (getHeight() - bitmap.getHeight())/2f;
 
-        //移动到中间位置 坐标 X 、Y 这是初始偏移量
-        originalOffsetX = ((float) getWidth() - bitmap.getWidth()) / 2;
-        originalOffsetY = ((float) getHeight() - bitmap.getHeight()) / 2;
-
-        //宽图
-        if ((float) bitmap.getWidth() / bitmap.getHeight() > (float) getWidth() / getHeight()) {
-            smallScale = (float) getWidth() / bitmap.getWidth();
-            bigScale = (float) getHeight() / bitmap.getHeight() * OVER_SCALE_FACTOR;
-            //长图
-        } else {
-            smallScale = (float) getHeight() / bitmap.getHeight();
-            bigScale = (float) getWidth() / bitmap.getWidth() * OVER_SCALE_FACTOR;
+        //宽图,宽度缩放比例就小
+        if ((float) bitmap.getWidth()/bitmap.getHeight() >(float)getWidth()/getHeight()){
+            smallScale = (float) getWidth() /bitmap.getWidth();
+            bigScale = (float)getHeight()/bitmap.getHeight();
+        }else{//长图，高度缩放比例就小
+            smallScale = (float)getHeight()/bitmap.getHeight();
+            bigScale = (float)getWidth()/bitmap.getWidth();
         }
-        currentScale = smallScale;
+
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = scaleDetector.onTouchEvent(event);
-        if (!scaleDetector.isInProgress()) {
+        if (!scaleDetector.isInProgress()){
             result = detector.onTouchEvent(event);
         }
 
@@ -93,21 +100,13 @@ public class ScalableImageView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float scaleFraction = (currentScale - smallScale) / (bigScale - smallScale);
-        canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction);
-        canvas.scale(currentScale, currentScale, getWidth() / 2f, getHeight() / 2f);
-        canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
+        //缩放
+        canvas.scale(currentScale,currentScale,getWidth()/2f,getHeight()/2f);
     }
 
-    private float getCurrentScale() {
-        return currentScale;
-    }
 
-    private void setCurrentScale(float currentScale) {
-        this.currentScale = currentScale;
-        invalidate();
-    }
 
+    @SuppressLint("ObjectAnimatorBinding")
     private ObjectAnimator getScaleAnimator() {
         if (scaleAnimator == null) {
             scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale", 0);
@@ -116,8 +115,18 @@ public class ScalableImageView extends View {
         return scaleAnimator;
     }
 
+
+    /**
+     * 只有onDown返回值有用，其余都没有用
+     *
+     * implements   OnGestureListener,
+     *              OnDoubleTapListener,
+     *              OnContextClickListener
+     *
+     */
     class HenGestureListener extends GestureDetector.SimpleOnGestureListener {
 
+        //收到action_down 事件，会回调这个方法。决定当前事件序列是不是需要处理，true需要。false是不需要
         @Override
         public boolean onDown(MotionEvent e) {
             return true;
@@ -126,8 +135,10 @@ public class ScalableImageView extends View {
         @Override
         public void onShowPress(MotionEvent e) {
 
+            //预按下状态结束回调方法
         }
 
+        //手抬起就回调
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             return false;
@@ -135,7 +146,7 @@ public class ScalableImageView extends View {
 
         @Override
         public boolean onScroll(MotionEvent down, MotionEvent event, float distanceX, float distanceY) {
-            if (big) {//大图状态才允许拖动
+            if (big) {
                 offsetX -= distanceX;
                 offsetY -= distanceY;
                 fixOffsets();
@@ -149,9 +160,10 @@ public class ScalableImageView extends View {
 
         }
 
+        //返回值无用
         @Override
         public boolean onFling(MotionEvent down, MotionEvent event, float velocityX, float velocityY) {
-            if (big) {//大图状态，才允许滑动
+            if (big) {
                 scroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
                         - (int) (bitmap.getWidth() * bigScale - getWidth()) / 2,
                         (int) (bitmap.getWidth() * bigScale - getWidth()) / 2,
@@ -163,32 +175,34 @@ public class ScalableImageView extends View {
             return false;
         }
 
+        //单击确认回调  （单击-->等待一定时间-->抬起）
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             return false;
         }
 
+        //300s 毫秒内之内才会触发
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             big = !big;
-            if (big) {//由小到大
+            if (big) {
                 offsetX = (e.getX() - getWidth() / 2f) - (e.getX() - getWidth() / 2) * bigScale / smallScale;
                 offsetY = (e.getY() - getHeight() / 2f) - (e.getY() - getHeight() / 2) * bigScale / smallScale;
                 fixOffsets();
                 getScaleAnimator().start();
-            } else {//由大到小，动画逆向
+            } else {
                 getScaleAnimator().reverse();
             }
             return false;
         }
 
+        //300s 毫秒内之内才会触发
         @Override
         public boolean onDoubleTapEvent(MotionEvent e) {
             return false;
         }
     }
 
-    // 边界判断，不能超出范围
     private void fixOffsets() {
         offsetX = Math.min(offsetX, (bitmap.getWidth() * bigScale - getWidth()) / 2);
         offsetX = Math.max(offsetX, - (bitmap.getWidth() * bigScale - getWidth()) / 2);
@@ -230,4 +244,5 @@ public class ScalableImageView extends View {
 
         }
     }
+
 }

@@ -110,6 +110,10 @@ public class ScalableImageView extends View implements NestedScrollingChild2 {
         return scaleAnimator;
     }
 
+    /****
+     * nestedScrollingChild2 接口 开始
+     */
+
     @Override
     public boolean startNestedScroll(int axes, int type) {
         return childHelper.startNestedScroll(axes, type);
@@ -134,6 +138,11 @@ public class ScalableImageView extends View implements NestedScrollingChild2 {
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
         return childHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);
     }
+
+    /**
+     * nestedScrollingChild2 接口 结束
+     */
+
 
     class HenGestureListener extends GestureDetector.SimpleOnGestureListener {
 
