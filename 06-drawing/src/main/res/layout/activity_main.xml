@@ -6,14 +6,49 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.hencoder.plus.view.ImageTextView
+<!--    <com.hencoder.plus.view.ImageTextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+
+    <TextView
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/tv_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+    </TextView>
+
+    <Button
+        android:id="@+id/bt_bindservice"
+        android:text="绑定服务器"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+        android:id="@+id/bt_unbindservice"
+        android:text="解绑服务器"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:id="@+id/bt_adduser"
+        android:text="添加用户"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+    <Button
+        android:id="@+id/bt_getuser"
+        android:text="获取所有用户"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
 </LinearLayout>

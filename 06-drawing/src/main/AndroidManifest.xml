@@ -11,8 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hencoder.plus.MainActivity"
-            >
+        <service
+            android:name=".bindwrapper.BinderPoolService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".MyUserService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote" />
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
