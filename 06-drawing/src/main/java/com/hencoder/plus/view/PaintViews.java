@@ -19,6 +19,7 @@ import com.hencoder.plus.Utils;
 public class PaintViews extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Paint paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
+    Paint paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
     Shader shader;
 
     Bitmap bitmap;
@@ -44,6 +45,24 @@ public class PaintViews extends View {
         canvas.drawBitmap(bitmap,0,0,paint1);
         canvas.translate(-Utils.dp2px(100),-Utils.dp2px(100));
         canvas.restore();
+
+
+        //Y轴错切
+        canvas.save();
+        canvas.translate(Utils.dp2px(200),Utils.dp2px(400));
+        canvas.skew(0,0.5f);
+        canvas.drawBitmap(bitmap,0,0,paint2);
+        canvas.translate(-Utils.dp2px(200),-Utils.dp2px(400));
+        canvas.restore();
+
+        //X轴错切
+        canvas.save();
+        canvas.translate(Utils.dp2px(200),Utils.dp2px(600));
+        canvas.skew(0.5f,0);
+        canvas.drawBitmap(bitmap,0,0,paint2);
+        canvas.translate(-Utils.dp2px(200),-Utils.dp2px(600));
+        canvas.restore();
+
     }
 
     Bitmap getAvatar(int width) {

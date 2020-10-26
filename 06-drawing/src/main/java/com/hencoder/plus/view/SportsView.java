@@ -1,5 +1,6 @@
 package com.hencoder.plus.view;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.hencoder.plus.Utils;
@@ -22,6 +24,21 @@ public class SportsView extends View {
     Rect rect = new Rect();
     Paint.FontMetrics fontMetrics = new Paint.FontMetrics();
 
+
+    private int progress = 0;
+
+    //自定义属性动画
+    ObjectAnimator animator;
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+        invalidate();
+    }
+
     public SportsView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
@@ -32,6 +49,8 @@ public class SportsView extends View {
         paint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "Quicksand-Regular.ttf"));
         paint.getFontMetrics(fontMetrics);
         paint.setTextAlign(Paint.Align.CENTER);
+
+        animator = ObjectAnimator.ofInt(this,"progress",0,65);
     }
 
     @Override
@@ -48,7 +67,7 @@ public class SportsView extends View {
         paint.setColor(HIGHLIGHT_COLOR);
         //圆角
         paint.setStrokeCap(Paint.Cap.ROUND);
-        canvas.drawArc(getWidth() / 2 - RADIUS, getHeight() / 2 - RADIUS, getWidth() / 2 + RADIUS, getHeight() / 2 + RADIUS, -90, 225, false, paint);
+        canvas.drawArc(getWidth() / 2 - RADIUS, getHeight() / 2 - RADIUS, getWidth() / 2 + RADIUS, getHeight() / 2 + RADIUS, 135, progress * 2.7f, false, paint);
 
         // 绘制文字
         paint.setTextSize(Utils.dp2px(100));
@@ -63,8 +82,32 @@ public class SportsView extends View {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        animator.setDuration(5000);
+        animator.setStartDelay(1000);
+        animator.start();
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        if (animator!=null){
+            animator.cancel();
+            animator = null;
+        }
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                int currentProgress = getProgress();
+                currentProgress+=5;
+                setProgress(currentProgress);
+                break;
+        }
+        return true;
     }
 }
