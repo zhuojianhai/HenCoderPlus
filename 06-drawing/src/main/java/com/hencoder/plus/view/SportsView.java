@@ -26,6 +26,7 @@ public class SportsView extends View {
         super(context, attrs);
     }
 
+    //游离代码块要先于当前类的构造方法执行
     {
         paint.setTextSize(Utils.dp2px(100));
         paint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "Quicksand-Regular.ttf"));
@@ -45,6 +46,7 @@ public class SportsView extends View {
 
         // 绘制进度条
         paint.setColor(HIGHLIGHT_COLOR);
+        //圆角
         paint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawArc(getWidth() / 2 - RADIUS, getHeight() / 2 - RADIUS, getWidth() / 2 + RADIUS, getHeight() / 2 + RADIUS, -90, 225, false, paint);
 
@@ -52,8 +54,17 @@ public class SportsView extends View {
         paint.setTextSize(Utils.dp2px(100));
         paint.setStyle(Paint.Style.FILL);
         paint.setTextAlign(Paint.Align.CENTER);
+
 //        paint.getTextBounds("abab", 0, "abab".length(), rect);
+
+        //精确测量文字的偏移量，使其能够真正的居中
         float offset = (fontMetrics.ascent + fontMetrics.descent) / 2;
         canvas.drawText("abab", getWidth() / 2, getHeight() / 2 - offset, paint);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
     }
 }

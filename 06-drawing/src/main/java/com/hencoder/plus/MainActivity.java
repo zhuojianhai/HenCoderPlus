@@ -6,6 +6,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.ArrayMap;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button addUser;
     Button getUser;
+    Button sportview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         addUser = findViewById(R.id.bt_adduser);
         getUser = findViewById(R.id.bt_getuser);
+        sportview = findViewById(R.id.bt_sportview);
+
         addUser.setOnClickListener(this);
+        sportview.setOnClickListener(this);
         getUser.setOnClickListener(this);
 
 
@@ -116,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             showContent(currentUser);
+        }else if(v==sportview){
+            Intent intent = new Intent(this,SportsViewActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -134,6 +143,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void showArrayMap(){
+        Random random = new Random();
+        int rs = random.nextInt(1000);
+        User user = new User();
+        user.setUserName("zhuojianhai"+rs);
+        user.setAddress("江苏徐州"+rs);
+
+
+        /***
+         * HashMap 在android 系统上的数据优化集合类
+         * ArrayMap、SpareArray
+         * ArrayMap 的key 是任意值
+         * SpareArray 的key 必须是int类型
+         */
+        ArrayMap<String,User> arrayMap = new ArrayMap<>();
+        arrayMap.put("1",user);
+        arrayMap.put("2",user);
+
+        SparseArray<User> sparseArray = new SparseArray<>();
+        sparseArray.put(1,user);
+        sparseArray.put(2,user);
+        sparseArray.put(3,user);
+        sparseArray.put(4,user);
+        sparseArray.put(5,user);
+
+
+    }
     @Override
     protected void onDestroy() {
         if (isConnected){

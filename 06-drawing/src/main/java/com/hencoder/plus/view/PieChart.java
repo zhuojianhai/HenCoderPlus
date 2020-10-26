@@ -18,9 +18,14 @@ public class PieChart extends View {
 
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     RectF bounds = new RectF();
+    //角度
     int[] angles = {60, 100, 120, 80};
-    int[] colors = {Color.parseColor("#2979FF"), Color.parseColor("#C2185B"),
-            Color.parseColor("#009688"), Color.parseColor("#FF8F00")};
+    int[] colors = {
+            Color.parseColor("#2979FF"),
+            Color.parseColor("#C2185B"),
+            Color.parseColor("#009688"),
+            Color.parseColor("#FF8F00")
+    };
 
     public PieChart(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

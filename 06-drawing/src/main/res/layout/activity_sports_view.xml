@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SportsViewActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.hencoder.plus.view.SportsView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.SportsView>
+
+        <com.hencoder.plus.view.Dashboard
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.Dashboard>
+        <com.hencoder.plus.view.AvatarView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.AvatarView>
+        <com.hencoder.plus.view.ImageTextView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.ImageTextView>
+        <com.hencoder.plus.view.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.PieChart>
+        <com.hencoder.plus.view.CView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.CView>
+
+        <com.hencoder.plus.view.PaintViews
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.PaintViews>
+    </LinearLayout>
+
+
+</ScrollView>
