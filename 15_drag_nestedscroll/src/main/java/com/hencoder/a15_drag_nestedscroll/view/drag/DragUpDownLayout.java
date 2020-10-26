@@ -14,10 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
 
+/**
+ * ViewDragHelper 的使用场景
+ * 必须要重写onInterceptOntouchEvent() 和 onTouchEvent() 方法
+ */
 public class DragUpDownLayout extends FrameLayout {
-    View view;
+
+    View view;//当前操作的View
+
     ViewDragHelper dragHelper;
+
     ViewDragHelper.Callback dragListener = new DragListener();
+
     ViewConfiguration viewConfiguration;
 
     public DragUpDownLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -51,6 +59,9 @@ public class DragUpDownLayout extends FrameLayout {
         }
     }
 
+    /**
+     * 垂直方向拖拽事件监听
+     */
     class DragListener extends ViewDragHelper.Callback {
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
@@ -62,6 +73,7 @@ public class DragUpDownLayout extends FrameLayout {
             return top;
         }
 
+        //松手事件监听
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             if (Math.abs(yvel) > viewConfiguration.getScaledMinimumFlingVelocity()) {

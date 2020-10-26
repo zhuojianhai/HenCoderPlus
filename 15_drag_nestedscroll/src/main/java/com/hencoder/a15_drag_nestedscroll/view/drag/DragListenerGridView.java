@@ -15,8 +15,13 @@ public class DragListenerGridView extends ViewGroup {
     private static final int ROWS = 3;
 
     ViewConfiguration viewConfiguration;
+
+    //拖拽事件监听器
     OnDragListener dragListener = new HenDragListener();
+
+    //当前拖拽的view
     View draggedView;
+
     List<View> orderedChildren = new ArrayList<>();
 
     public DragListenerGridView(Context context, AttributeSet attrs) {
@@ -25,6 +30,9 @@ public class DragListenerGridView extends ViewGroup {
         setChildrenDrawingOrderEnabled(true);
     }
 
+    /**
+     * 布局文件加载完成后
+     */
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -67,29 +75,35 @@ public class DragListenerGridView extends ViewGroup {
             View child = getChildAt(index);
             childLeft = index % 2 * childWidth;
             childTop = index / 2 * childHeight;
+
+            //都放在同一位置
             child.layout(0, 0, childWidth, childHeight);
+            //然后做移动
             child.setTranslationX(childLeft);
             child.setTranslationY(childTop);
         }
     }
 
+    /***
+     * 拖拽事件监听，响应拖拽的事件
+     */
     private class HenDragListener implements OnDragListener {
         @Override
         public boolean onDrag(View v, DragEvent event) {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    if (event.getLocalState() == v) {
+                    if (event.getLocalState() == v) {//传递过来的拖拽view
                         v.setVisibility(INVISIBLE);
                     }
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    if (event.getLocalState() != v) {
+                    if (event.getLocalState() != v) {//进入拖拽区域，事件回调
                         sort(v);
                     }
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
                     break;
-                case DragEvent.ACTION_DRAG_ENDED:
+                case DragEvent.ACTION_DRAG_ENDED://拖拽事件结束
                     v.setVisibility(VISIBLE);
                     break;
             }
@@ -97,6 +111,10 @@ public class DragListenerGridView extends ViewGroup {
         }
     }
 
+    /**
+     *
+     * @param targetView
+     */
     private void sort(View targetView) {
         int draggedIndex = -1;
         int targetIndex = -1;

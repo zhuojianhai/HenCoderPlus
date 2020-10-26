@@ -9,8 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <Button
+            android:id="@+id/bt_draghelper_gridview"
+            android:text="bt_draghelper_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Button>
+
+        <Button
+            android:id="@+id/bt_DragListenerGridView"
+            android:text="bt_DragListenerGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Button>
 
         <View
+
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:background="@color/colorAccent" />

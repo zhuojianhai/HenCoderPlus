@@ -114,11 +114,12 @@ public class ScalableImageView extends View implements NestedScrollingChild2 {
      * nestedScrollingChild2 接口 开始
      */
 
+    //子view 通知父控件，我要开始滑动 了
     @Override
     public boolean startNestedScroll(int axes, int type) {
         return childHelper.startNestedScroll(axes, type);
     }
-
+    //子view 通知父控件，我要停止滑动 了
     @Override
     public void stopNestedScroll(int type) {
         childHelper.stopNestedScroll(type);
@@ -129,11 +130,16 @@ public class ScalableImageView extends View implements NestedScrollingChild2 {
         return childHelper.hasNestedScrollingParent(type);
     }
 
+    /**
+     * 子view 第二次询问父控件是否需要消费滑动
+     */
     @Override
     public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @Nullable int[] offsetInWindow, int type) {
         return childHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow, type);
     }
-
+    /**
+     * 子view 第一次询问父控件是否需要消费滑动
+     */
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
         return childHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);

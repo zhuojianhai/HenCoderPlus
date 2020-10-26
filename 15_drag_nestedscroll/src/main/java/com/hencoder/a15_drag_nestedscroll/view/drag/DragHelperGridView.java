@@ -49,17 +49,24 @@ public class DragHelperGridView extends ViewGroup {
         }
     }
 
+    // 使用ViewDragHelper必须要重写这个方法
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return dragHelper.shouldInterceptTouchEvent(ev);
     }
 
+    // 使用ViewDragHelper必须要重写这个方法
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         dragHelper.processTouchEvent(event);
         return true;
     }
 
+    /**
+     * 调用invalidate()方法
+     * 会回调这个方法，一直计算
+     * 然后在invalidate 达到界面刷新
+     */
     @Override
     public void computeScroll() {
         if (dragHelper.continueSettling(true)) {
@@ -67,10 +74,14 @@ public class DragHelperGridView extends ViewGroup {
         }
     }
 
+    /**
+     * viewDragHelper 事件回调
+     */
     private class DragCallback extends ViewDragHelper.Callback {
         float capturedLeft;
         float capturedTop;
 
+        //尝试抓住view
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
             return true;
