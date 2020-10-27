@@ -1,6 +1,7 @@
 package com.hencoder.a15_drag_nestedscroll;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.widgets.ConstraintWidget;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt_DragListenerGridView = findViewById(R.id.bt_DragListenerGridView);
         bt_draghelper_gridview.setOnClickListener(this);
         bt_DragListenerGridView.setOnClickListener(this);
+
     }
 
     @Override
