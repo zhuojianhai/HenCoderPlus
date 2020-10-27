@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DragListenerGridViewActivity"></activity>
+        <activity android:name=".DragUpDownLayoutActivity"></activity>
+        <activity android:name=".DragToCollectLayoutActivity" />
+        <activity android:name=".DragListenerGridViewActivity" />
         <activity android:name=".DragHelperGridViewActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
