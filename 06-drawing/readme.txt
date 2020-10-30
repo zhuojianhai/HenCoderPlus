@@ -8,3 +8,10 @@ git checkout xx.java   //文件就被恢复
 
 git reset HEAD src/test  //将删除的文件夹找回来
 git checkout src/test   //将删除的文件恢复过来
+
+
+3.添加文件
+git  add xx.java   //增加文件到暂存区
+git  add .         //增加所有文件
+git  add  src/test  //增加一个文件夹
+
