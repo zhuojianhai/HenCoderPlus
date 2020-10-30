@@ -66,3 +66,56 @@ git commit -v
 #使用一次新的commit，替换上一次提交
 #如果代码没有任何变化，则用来改写上一次commit的提交信息
 git commit --amend -m [此次提交信息]
+
+#重做上一次commit，并包括制定文件的新变化
+git commit --amend [file1] [file2]
+
+五、分支
+#列出所有分支
+git branch
+#列出所有远程分支
+git branch -r
+
+#列出所有本地和远程分支
+git branch -a
+
+#新建一个分支，并切换到该分支
+git checkout -b [branch]
+e.g  git checkout -b dev #创建一个dev分支，并切换到该分支
+#新建一个分支，指向制定commit
+git branch [分支名称] [commit]
+
+#新建一个分支，与远程分支建立追踪关系
+git branch --track [分支名] [远程分支名]
+e.g  git branch --track dev  remotedev
+
+#切换到指定分支，并更新工作区
+git checkout [branch-name]
+
+#切换到上一个分支
+git checkout -
+
+#合并指定分支到当前分支
+git merge [branch-name]
+
+#选择一个commit，合并到当前分支
+git cherry-pick  [commit]
+
+#删除分支
+git branch -d [分支名称]
+或者
+git branch -D [分支名称]
+
+#删除远程分支
+git push origin  --delete  [branch-name]
+e.g  git push origin --delete master #删除远程origin仓库的master分支
+
+git branch -dr [remote/branch-name]
+e.g  git branch -dr remote/master
+
+六、标签
+#列出所有tag
+git tag
+
+#新建一个tag在当前commit
+git tag [tag-name]
