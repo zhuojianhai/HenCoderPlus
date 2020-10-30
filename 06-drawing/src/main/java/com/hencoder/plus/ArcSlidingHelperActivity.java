@@ -47,6 +47,7 @@ public class ArcSlidingHelperActivity extends AppCompatActivity {
             mArcSlidingHelper.setScrollAvailabilityRatio(0.1f);
 
         });
+        //拦截了点击事件
         getWindow().getDecorView().setOnTouchListener((v,event)->{
             //处理滑动事件
             mArcSlidingHelper.handleMovement(event);
