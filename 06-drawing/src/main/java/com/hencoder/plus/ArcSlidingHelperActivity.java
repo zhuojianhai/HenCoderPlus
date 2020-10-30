@@ -28,10 +28,20 @@ public class ArcSlidingHelperActivity extends AppCompatActivity {
         setContentView(R.layout.activity_arc_sliding_helper);
         mView = findViewById(R.id.tv_test);
         recyclerView = findViewById(R.id.rv_test);
-        mView.post(() -> {
+//        mView.post(() -> {
+//            //创建对象
+//            mArcSlidingHelper = ArcSlidingHelper.create(mView,
+//                    angle -> mView.setRotation(mView.getRotation() + angle));
+//            //开启惯性滚动
+//            mArcSlidingHelper.enableInertialSliding(true);
+//            mArcSlidingHelper.setScrollAvailabilityRatio(0.1f);
+//
+//        });
+
+        recyclerView.post(() -> {
             //创建对象
-            mArcSlidingHelper = ArcSlidingHelper.create(mView,
-                    angle -> mView.setRotation(mView.getRotation() + angle));
+            mArcSlidingHelper = ArcSlidingHelper.create(recyclerView,
+                    angle -> recyclerView.setRotation(recyclerView.getRotation() + angle));
             //开启惯性滚动
             mArcSlidingHelper.enableInertialSliding(true);
             mArcSlidingHelper.setScrollAvailabilityRatio(0.1f);
