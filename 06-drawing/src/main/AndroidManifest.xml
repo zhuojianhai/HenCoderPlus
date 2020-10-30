@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SportsViewActivity"></activity>
+        <activity android:name=".ArcSlidingHelperActivity"></activity>
+        <activity android:name=".SportsViewActivity" />
 
         <service
             android:name=".bindwrapper.BinderPoolService"

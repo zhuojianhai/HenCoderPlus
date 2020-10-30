@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.icu.text.CollationKey;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /***
  * 自定义标签Layout
@@ -22,6 +24,7 @@ public class TagLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        showInvokChains("onMeasure");
         int widthUsed = 0;
         int heightUsed = 0;
         int lineWidthUsed = 0;
@@ -68,5 +71,16 @@ public class TagLayout extends ViewGroup {
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    /****
+     * 方便查看哪些方法调用了 指定mentod的方法
+     */
+    private void showInvokChains(String method){
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : elements) {
+            Log.i(method, String.format(Locale.getDefault(), "%s----->%s\tline: %d",
+                    element.getClassName(), element.getMethodName(), element.getLineNumber()));
+        }
     }
 }

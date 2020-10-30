@@ -78,5 +78,11 @@ public class SpView extends View {
         float offset = (fontMetrics.ascent + fontMetrics.descent)/2;
 
         canvas.drawText(str,getWidth()/2,getHeight()/2 - offset,mPaint);
+
+
+        canvas.save();
+        mPaint.setColor(Color.GREEN);
+        canvas.drawRect(0,0,Utils.dp2px(100),Utils.dp2px(100),mPaint);
+        canvas.restore();
     }
 }

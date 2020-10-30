@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button addUser;
     Button getUser;
     Button sportview;
+    Button arcSlideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addUser = findViewById(R.id.bt_adduser);
         getUser = findViewById(R.id.bt_getuser);
         sportview = findViewById(R.id.bt_sportview);
+        arcSlideView = findViewById(R.id.bt_arcslidedview);
 
         addUser.setOnClickListener(this);
         sportview.setOnClickListener(this);
         getUser.setOnClickListener(this);
+        arcSlideView.setOnClickListener(this);
+
 
 
     }
@@ -124,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             showContent(currentUser);
         }else if(v==sportview){
             Intent intent = new Intent(this,SportsViewActivity.class);
+            startActivity(intent);
+        }else if(v ==arcSlideView){
+            Intent intent = new Intent(this,ArcSlidingHelperActivity.class);
             startActivity(intent);
         }
     }

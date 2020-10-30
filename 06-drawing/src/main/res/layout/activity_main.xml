@@ -72,4 +72,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Button>
+    <Button
+        android:id="@+id/bt_arcslidedview"
+        android:text="跳转到旋转"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
 </LinearLayout>
