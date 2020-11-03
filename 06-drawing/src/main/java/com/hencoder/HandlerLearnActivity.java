@@ -11,8 +11,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.TextView;
 
 import com.hencoder.plus.R;
+
+import org.w3c.dom.Text;
 
 public class HandlerLearnActivity extends AppCompatActivity {
 
@@ -33,6 +36,20 @@ public class HandlerLearnActivity extends AppCompatActivity {
     private void showHandlerInf(){
 
         mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+        TextView textView = new TextView(this);
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
 

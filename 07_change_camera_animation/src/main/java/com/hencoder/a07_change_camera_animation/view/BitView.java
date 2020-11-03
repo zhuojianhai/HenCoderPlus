@@ -7,17 +7,21 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.hencoder.a07_change_camera_animation.R;
-import com.hencoder.a07_change_camera_animation.Utils;
 
 public class BitView  extends View {
     Bitmap bitmap;
     Matrix matrix;
     Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    VelocityTracker velocityTracker;
+
     public BitView(Context context) {
         this(context,null);
     }
@@ -35,8 +39,15 @@ public class BitView  extends View {
         options.inSampleSize = 8;
         options.inJustDecodeBounds = false;
         bitmap =  BitmapFactory.decodeResource(context.getResources(),R.drawable.avatar_rengwuxian,options);
+
+        velocityTracker = VelocityTracker.obtain();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+         velocityTracker.addMovement(event);
+        return super.onTouchEvent(event);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
