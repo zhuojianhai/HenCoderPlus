@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -35,7 +36,9 @@ public class SpView extends View {
 
     {
         mPaint.setTextSize(Utils.dp2px(100));
+        mPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "Quicksand-Regular.ttf"));
         mPaint.getFontMetrics(fontMetrics);
+        mPaint.setTextAlign(Paint.Align.CENTER);
 
     }
     @Override

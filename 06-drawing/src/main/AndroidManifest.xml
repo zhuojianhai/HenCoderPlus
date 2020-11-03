@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ArcSlidingHelperActivity"></activity>
+        <activity android:name="com.hencoder.HandlerLearnActivity"></activity>
+        <activity android:name=".ArcSlidingHelperActivity" />
         <activity android:name=".SportsViewActivity" />
 
         <service
