@@ -19,7 +19,9 @@
     <com.hencoder.a07_change_camera_animation.view.ScrollLinearLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+       android:layout_margin="10dp"
+        >
 
         <Button
             android:text="滑动被我"

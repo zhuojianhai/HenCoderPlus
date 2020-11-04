@@ -1,20 +1,13 @@
 package com.hencoder.a07_change_camera_animation.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-import com.hencoder.a07_change_camera_animation.R;
 
 public class ScrollLinearLayout extends LinearLayout {
 
@@ -49,18 +42,16 @@ public class ScrollLinearLayout extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        velocityTracker.addMovement(event); 不能放在这个位置，否则会有问题
-        if (velocityTracker == null){
-            velocityTracker = VelocityTracker.obtain();
-        }
+
+        velocityTracker.addMovement(event);
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                velocityTracker.addMovement(event);
                 lastX = event.getX();
                 lastY = event.getY();
+                Log.e("MotionEvent.ACTION_DOWN","getLeft() = "+getLeft()+" getTop()="+getTop());
                 break;
             case MotionEvent.ACTION_MOVE:
-                velocityTracker.addMovement(event);
+
                 float currentX = event.getX();
                 float currentY = event.getY();
 
@@ -79,8 +70,11 @@ public class ScrollLinearLayout extends LinearLayout {
                 //在触点抬起，继续滑动的距离
                 int xVelocity = getXScrollVelocity();
                 int yVeloctiy = getYScrollVelocity();
+
                 scroller.forceFinished(true);
-                scroller.fling(getScrollX(),getScrollY(),(int) (-0.5 * xVelocity), (int) (-0.5 * yVeloctiy), -2000, 2000, -2000, 2000);
+                Log.e("MotionEvent.ACTION_UP","getLeft() = "+getLeft()+" getTop()="+getTop());
+//                Log.e("MotionEvent.ACTION_UP","getScrollX() = "+getScrollX()+" getScrollY()="+getScrollY());
+                scroller.fling(getScrollX(),getScrollY(),(int) (-0.5 * xVelocity), (int) (-0.5 * yVeloctiy), -1000, getWidth(), -1000, getHeight());
                 recyclerVelocityTracker();
                 break;
 
@@ -93,6 +87,7 @@ public class ScrollLinearLayout extends LinearLayout {
     public void computeScroll() {
         super.computeScroll();
         if (scroller.computeScrollOffset()){
+            Log.e("computeScroll","getScrollX() = "+getScrollX()+" getScrollY()="+getScrollY());
             scrollTo(scroller.getCurrX(),scroller.getCurrY());
             postInvalidate();
         }
@@ -100,8 +95,7 @@ public class ScrollLinearLayout extends LinearLayout {
 
     private void recyclerVelocityTracker(){
         if (velocityTracker!=null){
-            velocityTracker.recycle();
-            velocityTracker = null;
+            velocityTracker.clear();
         }
     }
 
@@ -119,5 +113,11 @@ public class ScrollLinearLayout extends LinearLayout {
         velocityTracker.computeCurrentVelocity(1000);
         int yVelocity = (int) velocityTracker.getYVelocity();
         return yVelocity;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        return super.dispatchTouchEvent(ev);
     }
 }
