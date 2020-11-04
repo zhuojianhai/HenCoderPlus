@@ -73,6 +73,7 @@ public class ScrollLinearLayout extends LinearLayout {
 
                 scroller.forceFinished(true);
                 Log.e("MotionEvent.ACTION_UP","getLeft() = "+getLeft()+" getTop()="+getTop());
+                Log.e("MotionEvent.ACTION_UP","getScrollX()-getLeft() = "+(getScrollX()-getLeft())+" getScrollY()- getTop()="+(getScrollY()-getTop()));
 //                Log.e("MotionEvent.ACTION_UP","getScrollX() = "+getScrollX()+" getScrollY()="+getScrollY());
                 scroller.fling(getScrollX(),getScrollY(),(int) (-0.5 * xVelocity), (int) (-0.5 * yVeloctiy), -1000, getWidth(), -1000, getHeight());
                 recyclerVelocityTracker();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -53,14 +54,39 @@ public class BitView  extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        matrix.setRotate(90);
-//        bitmap = Utils.getAvatar(getContext().getResources(),300);
-        matrix.reset();
-        canvas.drawBitmap(bitmap,matrix,mPaint);
-        matrix.postScale(2,2);
-        matrix.setRotate(90);
-        canvas.drawBitmap(bitmap,matrix,mPaint);
+//        matrix.setRotate(90);
+////        bitmap = Utils.getAvatar(getContext().getResources(),300);
+//        matrix.reset();
+//        canvas.drawBitmap(bitmap,matrix,mPaint);
+//        matrix.postScale(2,2);
+//        matrix.setRotate(90);
+//        canvas.drawBitmap(bitmap,matrix,mPaint);
 
+
+
+
+
+
+        canvas.drawRect(100,100,50,50,mPaint);
+
+
+
+
+        canvas.save();
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.translate(100,100);
+        canvas.drawRect(100,100,50,50,mPaint);
+        canvas.translate(-100,-100);
+        canvas.restore();
+
+
+        canvas.save();
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.GREEN);
+        canvas.translate(-200,-200);
+        canvas.drawRect(0,0,500,500,mPaint);
+        canvas.translate(200,200);
+        canvas.restore();
 
     }
 }
