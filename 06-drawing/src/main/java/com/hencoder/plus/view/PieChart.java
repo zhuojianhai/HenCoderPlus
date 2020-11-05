@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.hencoder.plus.Utils;
@@ -31,6 +32,7 @@ public class PieChart extends View {
         super(context, attrs);
     }
 
+    //这个方法里可以得到view的真实宽、高
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -54,5 +56,17 @@ public class PieChart extends View {
             canvas.restore();
             currentAngle += angles[i];
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getActionMasked();
+        switch (action){
+            case MotionEvent.ACTION_DOWN:
+
+                break;
+        }
+
+        return true;
     }
 }

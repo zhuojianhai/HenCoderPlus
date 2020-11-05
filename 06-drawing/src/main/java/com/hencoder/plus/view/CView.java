@@ -10,6 +10,7 @@ import android.nfc.Tag;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.OverScroller;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,8 @@ public class CView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Shader shader;
 
+    OverScroller scroller;
+
     public CView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
@@ -28,6 +31,17 @@ public class CView extends View {
         shader = new LinearGradient( Utils.dp2px(100), Utils.dp2px(100), Utils.dp2px(500), Utils.dp2px(500), Color.parseColor("#E91E63"),
                 Color.parseColor("#2196F3"), Shader.TileMode.CLAMP);
         paint.setShader(shader);
+
+        scroller = new OverScroller(getContext());
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (scroller.computeScrollOffset()){
+            scrollTo(scroller.getCurrX(),scroller.getCurrY());
+            postInvalidate();
+        }
     }
 
     @Override
@@ -66,5 +80,17 @@ public class CView extends View {
         }
 
 
+    }
+
+    /**
+     * 缓慢滑动到指定位置
+     * @param dex
+     * @param dey
+     */
+    private void smoothScroll(int dex,int dey){
+        int scrollX = getScrollX();
+        int delta =  dex - scrollX;
+        scroller.startScroll(scrollX,0,delta,0,1000);
+        invalidate();
     }
 }

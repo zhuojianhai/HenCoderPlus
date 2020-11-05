@@ -47,6 +47,12 @@
             android:layout_height="800dp">
 
         </com.hencoder.plus.view.PaintViews>
+
+        <com.hencoder.plus.view.SpView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+        </com.hencoder.plus.view.SpView>
     </LinearLayout>
 
 

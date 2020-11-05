@@ -42,7 +42,9 @@ public class Main {
 //        nio2();
 //        okio1();
 //        okio2();
-        sh();
+//        sh();
+        int mask = 0X3;
+        System.out.println(mask);
     }
 
     private static void sh(){

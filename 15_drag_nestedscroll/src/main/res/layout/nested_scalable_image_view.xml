@@ -24,6 +24,13 @@
             android:layout_height="wrap_content">
 
         </Button>
+        <Button
+            android:id="@+id/bt_DragToCollectLayout"
+            android:text="bt_DragToCollectLayoutView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Button>
 
         <View
 

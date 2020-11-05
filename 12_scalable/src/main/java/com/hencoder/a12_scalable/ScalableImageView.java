@@ -233,7 +233,10 @@ public class ScalableImageView extends View {
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            // detector.getScaleFactor() 与上次事件相比，得到的比例因子
             currentScale = initialScale * detector.getScaleFactor();
+            System.out.println("HenScaleListener--onScale--detector.getScaleFactor "+detector.getScaleFactor());
+            System.out.println("HenScaleListener--onScale--currentScale "+currentScale);
             invalidate();
             return false;
         }
@@ -241,6 +244,8 @@ public class ScalableImageView extends View {
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             initialScale = currentScale;
+            System.out.println("HenScaleListener--onScaleBegin--initialScale "+initialScale);
+            //一定要返回true才会进入onScale()这个函数
             return true;
         }
 

@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hencoder.HandlerLearnActivity;
 import com.hencoder.plus.bean.User;
 
 import java.util.List;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button addUser;
     Button getUser;
     Button sportview;
+    Button bt_piechatview;
+    Button arcSlideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addUser = findViewById(R.id.bt_adduser);
         getUser = findViewById(R.id.bt_getuser);
         sportview = findViewById(R.id.bt_sportview);
+        arcSlideView = findViewById(R.id.bt_arcslidedview);
+        bt_piechatview = findViewById(R.id.bt_piechatview);
 
         addUser.setOnClickListener(this);
         sportview.setOnClickListener(this);
         getUser.setOnClickListener(this);
+        arcSlideView.setOnClickListener(this);
+        bt_piechatview.setOnClickListener(this);
+
 
 
     }
@@ -124,6 +132,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             showContent(currentUser);
         }else if(v==sportview){
             Intent intent = new Intent(this,SportsViewActivity.class);
+            startActivity(intent);
+        }else if(v ==arcSlideView){
+            Intent intent = new Intent(this,ArcSlidingHelperActivity.class);
+            startActivity(intent);
+        }else if (v == bt_piechatview){
+            Intent intent = new Intent(this, HandlerLearnActivity.class);
             startActivity(intent);
         }
     }
