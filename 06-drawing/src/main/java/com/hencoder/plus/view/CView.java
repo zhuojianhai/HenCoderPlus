@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.nfc.Tag;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.hencoder.plus.Utils;
 
 public class CView extends View {
+    private static final String TAG = "CView";
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Shader shader;
 
@@ -30,6 +33,8 @@ public class CView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        String msg = new String("create msge");
+        Log.e(TAG, "onDraw: "+msg);
         int width = getWidth();
         int height = getHeight();
         canvas.drawColor(Color.GRAY);

@@ -1,11 +1,16 @@
 package com.hencoder.a10_layout.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.icu.text.CollationKey;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hencoder.a10_layout.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +19,7 @@ import java.util.List;
  * 自定义标签Layout
  */
 public class TagLayout extends ViewGroup {
+    Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     List<Rect> childrenBounds = new ArrayList<>();
 
     public TagLayout(Context context, AttributeSet attrs) {
@@ -68,5 +74,16 @@ public class TagLayout extends ViewGroup {
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        mPaint.setStrokeWidth(Utils.dpToPixel(16));
+        mPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(getWidth()/2f,getHeight()/2f, Utils.dpToPixel(50),mPaint);
+        canvas.drawCircle(getWidth()/4f,getHeight()/4f, Utils.dpToPixel(50),mPaint);
+        canvas.drawCircle(getWidth()/8f,getHeight()/8f, Utils.dpToPixel(50),mPaint);
+        canvas.drawCircle(getWidth()/16f,getHeight()/8f, Utils.dpToPixel(50),mPaint);
     }
 }

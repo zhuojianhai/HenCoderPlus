@@ -43,6 +43,25 @@ public class SBean {
         SBean ss =  gson.fromJson(string,SBean.class);
         System.out.println(ss.toString());
 
+       final ThreadLocal<String> threadLocal = new ThreadLocal<>();
+        threadLocal.set("main String");
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadLocal.set("child1 string");
+                System.out.println(Thread.currentThread() +threadLocal.get());
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadLocal.set("child2 string");
+
+                System.out.println(Thread.currentThread() +threadLocal.get());
+            }
+        }).start();
 
     }
 }
