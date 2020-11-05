@@ -37,9 +37,13 @@ public class ScalableImageView extends View {
 
     float currentScale;
     ObjectAnimator scaleAnimator;
+
     GestureDetectorCompat detector;
+
     ScalableImageView.HenGestureListener gestureListener = new ScalableImageView.HenGestureListener();
+
     ScalableImageView.HenFlingRunner henFlingRunner = new ScalableImageView.HenFlingRunner();
+
     ScaleGestureDetector scaleDetector;
     ScalableImageView.HenScaleListener henScaleListener = new ScalableImageView.HenScaleListener();
     OverScroller scroller;
@@ -89,6 +93,7 @@ public class ScalableImageView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = scaleDetector.onTouchEvent(event);
+        //如果缩放手势没有在处理，就交由 detector去处理
         if (!scaleDetector.isInProgress()){
             result = detector.onTouchEvent(event);
         }
@@ -171,6 +176,7 @@ public class ScalableImageView extends View {
                         (int) (bitmap.getHeight() * bigScale - getHeight()) / 2);
 
                 postOnAnimation(henFlingRunner);
+
             }
             return false;
         }
@@ -228,7 +234,9 @@ public class ScalableImageView extends View {
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            // detector.getScaleFactor() 与上次事件相比，得到的比例因子
             currentScale = initialScale * detector.getScaleFactor();
+            System.out.println("HenScaleListener--onScale--currentScale"+currentScale);
             invalidate();
             return false;
         }
@@ -236,6 +244,8 @@ public class ScalableImageView extends View {
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             initialScale = currentScale;
+            System.out.println("HenScaleListener--onScaleBegin--initialScale"+initialScale);
+            //一定要返回true才会进入onScale()这个函数
             return true;
         }
 
