@@ -2,6 +2,11 @@ package com.hencoder.a10_layout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.PixelFormat;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.WindowManager;
+import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +23,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+    }
+
+    private void showWindow(){
+        WindowManager windowManager = getWindowManager();
+        TextView textViewCompat = new TextView(this);
+        textViewCompat.setText("zhuojianhai");
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                0,0, PixelFormat.TRANSPARENT
+        );
+
+        layoutParams.gravity = Gravity.LEFT|Gravity.TOP;
+        windowManager.addView(textViewCompat,layoutParams);
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams  params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

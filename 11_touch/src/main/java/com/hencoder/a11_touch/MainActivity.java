@@ -7,6 +7,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     View view;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "点击了！", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
+        RecyclerView recyclerView = new RecyclerView(this);
     }
 
     @Override

@@ -3,6 +3,12 @@ package com.hencoder.plus;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -16,7 +22,19 @@ public class SportsViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports_view);
 
-        RecyclerView s;
+
+//        startActivity(new Intent(this,SportsViewActivity.class));
+
+        Handler ha = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
+
+        ha.sendEmptyMessage(0);
+
+
 
     }
 
