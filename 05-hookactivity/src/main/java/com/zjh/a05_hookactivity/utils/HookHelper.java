@@ -196,7 +196,10 @@ public class HookHelper {
        try {
            Field gDefaultField =null;
            Log.i(TAG, "hookAMSInterceptStartActivity: " + Build.VERSION.SDK_INT);
-           if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.O ){
+           if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
+               Class<?> activityManager = Class.forName("android.app.ActivityTaskManager");
+               gDefaultField = activityManager.getDeclaredField("IActivityTaskManagerSingleton");
+           } else if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.O ){
                Class<?> activityManager = Class.forName("android.app.ActivityManager");
                gDefaultField = activityManager.getDeclaredField("IActivityManagerSingleton");
                Log.i(TAG, "hookAMSInterceptStartActivity: " + gDefaultField);
@@ -219,7 +222,12 @@ public class HookHelper {
            Object rawIActivityManager = mInstanceField.get(gDefault);
 
            // 创建一个这个对象的代理对象, 然后替换这个字段, 让我们的代理对象帮忙干活
-           Class<?> iActivityManagerInterface = Class.forName("android.app.IActivityManager");
+           Class<?> iActivityManagerInterface = null;
+           if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
+               iActivityManagerInterface =Class.forName("android.app.IActivityTaskManager");
+           }else{
+               iActivityManagerInterface = Class.forName("android.app.IActivityManager");
+           }
            Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                    new Class<?>[] { iActivityManagerInterface }, new IActivityManagerHandler(rawIActivityManager));
            mInstanceField.set(gDefault, proxy);
