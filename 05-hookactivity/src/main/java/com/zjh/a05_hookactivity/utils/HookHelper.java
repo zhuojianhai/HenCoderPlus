@@ -209,7 +209,6 @@ public class HookHelper {
                Log.i(TAG, "hookAMSInterceptStartActivity: " + gDefaultField);
            }
            gDefaultField.setAccessible(true);
-//           gDefaultField.setAccessible(true);
 
            Object gDefault = gDefaultField.get(null);
 
@@ -223,6 +222,8 @@ public class HookHelper {
 
            // 创建一个这个对象的代理对象, 然后替换这个字段, 让我们的代理对象帮忙干活
            Class<?> iActivityManagerInterface = null;
+
+           //29中AMS代理接口改变了，所以要做下适配
            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
                iActivityManagerInterface =Class.forName("android.app.IActivityTaskManager");
            }else{
@@ -236,14 +237,13 @@ public class HookHelper {
            e.printStackTrace();
        }
     }
-
     public static void hookH(){
         try{
             // 先获取到当前的ActivityThread对象
             Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
             Field currentActivityThreadField = activityThreadClass.getDeclaredField("sCurrentActivityThread");
             currentActivityThreadField.setAccessible(true);
-            Object currentActivityThread = currentActivityThreadField.get(null);
+                Object currentActivityThread = currentActivityThreadField.get(null);
 
             // 由于ActivityThread一个进程只有一个,我们获取这个对象的mH
             Field mHField = activityThreadClass.getDeclaredField("mH");
