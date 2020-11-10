@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.zjh.a04_okhttplearn.cryptography.MyCryptoUtils;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                Log.i(TAG, "onResponse: "+response.body().string());
            }
        });
+
+        MyCryptoUtils.secureRandom();
     }
 
     private void showTCP(){

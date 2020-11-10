@@ -28,6 +28,8 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
 import okio.Buffer;
+import okio.BufferedSink;
+import okio.BufferedSource;
 import okio.Okio;
 import okio.Source;
 
@@ -43,10 +45,24 @@ public class Main {
 //        okio1();
 //        okio2();
 //        sh();
-        int mask = 0X3;
-        System.out.println(mask);
+//        int mask = 0X3;
+//        System.out.println(mask);
+        okio1();
     }
 
+    private static void io8(){
+        File file = new File("./19_io/text.txt");
+        try {
+            BufferedSink bufferedSink =  Okio.buffer(Okio.sink(file));
+
+
+            BufferedSource bufferedSource = Okio.buffer(Okio.source(file));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
     private static void sh(){
         int a = 3;
         int b =1;
@@ -179,6 +195,10 @@ public class Main {
             source.read(buffer, 1024);
             System.out.println(buffer.readUtf8Line());
             System.out.println(buffer.readUtf8Line());
+
+            System.out.println("buffer.sha1() "+buffer.sha1().toString());
+
+            System.out.println( "  buffer.md5() "+buffer.md5());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
