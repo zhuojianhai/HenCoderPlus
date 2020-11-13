@@ -6,15 +6,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hencoder.a28_lib.Binding;
+import com.hencoder.a28_lib_annotations.ApiAnnotation;
 import com.hencoder.a28_lib_annotations.BindView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.textView) TextView textView;
     @BindView(R.id.parentLayout) View parentLayout;
 
+    @ApiAnnotation(date = "2020-11-13")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
